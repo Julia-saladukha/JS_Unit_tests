@@ -2,8 +2,9 @@
 using NLog;
 using NUnit.Framework;
 using System;
-using Task1.SourceCode;
-using Task1.SourceCode.exception;
+using System.Collections.Generic;
+using Tests2AnotherTry2.Tests2AnotherTry2;
+using Tests2AnotherTry2.Tests2AnotherTry2.exception;
 
 namespace Tests2AnotherTry.Tests
 {
@@ -32,7 +33,7 @@ namespace Tests2AnotherTry.Tests
         public void Write_ShouldAddFile_WhenUniqueAndFits()
         {
             var storage = new FileStorage(10);
-            var file = new Task1.SourceCode.File("a.txt", "1234"); // size = 2
+            var file = new Tests2AnotherTry2.Tests2AnotherTry2.File("a.txt", "1234"); // size = 2
             var result = storage.Write(file);
             Logger.Info("Write result: {0}", result);
             result.Should().BeTrue();
@@ -43,8 +44,8 @@ namespace Tests2AnotherTry.Tests
         public void Write_ShouldThrow_WhenFileNameExists()
         {
             var storage = new FileStorage(10);
-            var file1 = new Task1.SourceCode.File("a.txt", "12");
-            var file2 = new Task1.SourceCode.File("a.txt", "34");
+            var file1 = new Tests2AnotherTry2.Tests2AnotherTry2.File("a.txt", "12");
+            var file2 = new Tests2AnotherTry2.Tests2AnotherTry2.File("a.txt", "34");
             storage.Write(file1);
             Logger.Info("Attempting to write duplicate file name.");
             Action act = () => storage.Write(file2);
@@ -55,7 +56,7 @@ namespace Tests2AnotherTry.Tests
         public void Write_ShouldReturnFalse_WhenNotEnoughSpace()
         {
             var storage = new FileStorage(2);
-            var file = new Task1.SourceCode.File("big.txt", "123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456"); // size = 150
+            var file = new Tests2AnotherTry2.Tests2AnotherTry2.File("big.txt", "123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456"); // size = 150
             var result = storage.Write(file);
             Logger.Info("Write result for oversized file: {0}", result);
             result.Should().BeFalse();
@@ -65,7 +66,7 @@ namespace Tests2AnotherTry.Tests
         public void IsExists_ShouldReturnTrue_WhenFileExists()
         {
             var storage = new FileStorage();
-            var file = new Task1.SourceCode.File("b.txt", "12");
+            var file = new Tests2AnotherTry2.Tests2AnotherTry2.File("b.txt", "12");
             storage.Write(file);
             Logger.Info("Checking existence of file: b.txt");
             storage.IsExists("b.txt").Should().BeTrue();
@@ -83,7 +84,7 @@ namespace Tests2AnotherTry.Tests
         public void Delete_ShouldRemoveFile_WhenExists()
         {
             var storage = new FileStorage();
-            var file = new Task1.SourceCode.File("c.txt", "12");
+            var file = new Tests2AnotherTry2.Tests2AnotherTry2.File("c.txt", "12");
             storage.Write(file);
             var result = storage.Delete("c.txt");
             Logger.Info("Delete result: {0}", result);
@@ -104,19 +105,19 @@ namespace Tests2AnotherTry.Tests
         public void GetFiles_ShouldReturnAllFiles()
         {
             var storage = new FileStorage();
-            var file1 = new Task1.SourceCode.File("f1.txt", "abc");
-            var file2 = new Task1.SourceCode.File("f2.txt", "def");
+            var file1 = new Tests2AnotherTry2.Tests2AnotherTry2.File("f1.txt", "abc");
+            var file2 = new Tests2AnotherTry2.Tests2AnotherTry2.File("f2.txt", "def");
             storage.Write(file1);
             storage.Write(file2);
             Logger.Info("Getting all files from storage.");
-            storage.GetFiles().Should().BeEquivalentTo(new List<Task1.SourceCode.File> { file1, file2 });
+            storage.GetFiles().Should().BeEquivalentTo(new List<Tests2AnotherTry2.Tests2AnotherTry2.File> { file1, file2 });
         }
 
         [Test]
         public void GetFile_ShouldReturnFile_WhenExists()
         {
             var storage = new FileStorage();
-            var file = new Task1.SourceCode.File("d.txt", "12");
+            var file = new Tests2AnotherTry2.Tests2AnotherTry2.File("d.txt", "12");
             storage.Write(file);
             Logger.Info("Getting file: d.txt");
             var found = storage.GetFile("d.txt");

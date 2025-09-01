@@ -1,8 +1,7 @@
-﻿
-using System.Collections.Generic;
-using Task1.SourceCode.exception;
+﻿using System.Collections.Generic;
+using Tests2AnotherTry2.Tests2AnotherTry2.exception;
 
-namespace Task1.SourceCode
+namespace Tests2AnotherTry2.Tests2AnotherTry2
 {
     internal class FileStorage
     {

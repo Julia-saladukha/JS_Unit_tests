@@ -1,4 +1,4 @@
-﻿namespace Task1.SourceCode
+﻿namespace Tests2AnotherTry2.Tests2AnotherTry2
 {
     internal class File
     {
