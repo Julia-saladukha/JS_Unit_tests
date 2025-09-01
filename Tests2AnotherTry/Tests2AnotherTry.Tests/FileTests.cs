@@ -1,29 +1,30 @@
 using Task1.SourceCode;
-using Xunit;
+using NUnit.Framework;
 
 namespace Task1.SourceCode.Tests
 {
+    [TestFixture]
     public class FileTests
     {
-        [Fact]
+        [Test]
         public void Constructor_SetsFileNameAndContent()
         {
             var file = new File("test.txt", "abcdef");
-            Assert.Equal("test.txt", file.GetFileName());
+            Assert.AreEqual("test.txt", file.GetFileName());
         }
 
-        [Fact]
+        [Test]
         public void GetSize_ReturnsHalfContentLength()
         {
             var file = new File("test.txt", "12345678");
-            Assert.Equal(4, file.GetSize());
+            Assert.AreEqual(4, file.GetSize());
         }
 
-        [Fact]
+        [Test]
         public void GetSize_ReturnsZeroForEmptyContent()
         {
             var file = new File("empty.txt", "");
-            Assert.Equal(0, file.GetSize());
+            Assert.AreEqual(0, file.GetSize());
         }
     }
 }

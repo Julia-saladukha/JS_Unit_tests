@@ -2,23 +2,24 @@ using System;
 using System.Collections.Generic;
 using Task1.SourceCode;
 using Task1.SourceCode.exception;
-using Xunit;
+using NUnit.Framework;
 
 namespace Task1.SourceCode.Tests
 {
+    [TestFixture]
     public class FileStorageTests
     {
-        [Fact]
+        [Test]
         public void Write_AddsFile_WhenUniqueAndFits()
         {
             var storage = new FileStorage(10);
             var file = new File("a.txt", "1234"); // size = 2
             var result = storage.Write(file);
-            Assert.True(result);
+            Assert.IsTrue(result);
             Assert.Contains(file, storage.GetFiles());
         }
 
-        [Fact]
+        [Test]
         public void Write_Throws_WhenFileNameExists()
         {
             var storage = new FileStorage(10);
@@ -28,58 +29,58 @@ namespace Task1.SourceCode.Tests
             Assert.Throws<FileNameAlreadyExistsException>(() => storage.Write(file2));
         }
 
-        [Fact]
+        [Test]
         public void Write_ReturnsFalse_WhenNotEnoughSpace()
         {
             var storage = new FileStorage(2);
             var file = new File("big.txt", "123456"); // size = 3
             var result = storage.Write(file);
-            Assert.False(result);
+            Assert.IsFalse(result);
         }
 
-        [Fact]
+        [Test]
         public void IsExists_ReturnsTrue_WhenFileExists()
         {
             var storage = new FileStorage();
             var file = new File("b.txt", "12");
             storage.Write(file);
-            Assert.True(storage.IsExists("b.txt"));
+            Assert.IsTrue(storage.IsExists("b.txt"));
         }
 
-        [Fact]
+        [Test]
         public void IsExists_ReturnsFalse_WhenFileDoesNotExist()
         {
             var storage = new FileStorage();
-            Assert.False(storage.IsExists("notfound.txt"));
+            Assert.IsFalse(storage.IsExists("notfound.txt"));
         }
 
-        [Fact]
+        [Test]
         public void Delete_RemovesFile()
         {
             var storage = new FileStorage();
             var file = new File("c.txt", "12");
             storage.Write(file);
             var result = storage.Delete("c.txt");
-            Assert.True(result);
-            Assert.False(storage.IsExists("c.txt"));
+            Assert.IsTrue(result);
+            Assert.IsFalse(storage.IsExists("c.txt"));
         }
 
-        [Fact]
+        [Test]
         public void GetFile_ReturnsFile_WhenExists()
         {
             var storage = new FileStorage();
             var file = new File("d.txt", "12");
             storage.Write(file);
             var found = storage.GetFile("d.txt");
-            Assert.Equal(file, found);
+            Assert.AreEqual(file, found);
         }
 
-        [Fact]
+        [Test]
         public void GetFile_ReturnsNull_WhenNotExists()
         {
             var storage = new FileStorage();
             var found = storage.GetFile("missing.txt");
-            Assert.Null(found);
+            Assert.IsNull(found);
         }
     }
 }
