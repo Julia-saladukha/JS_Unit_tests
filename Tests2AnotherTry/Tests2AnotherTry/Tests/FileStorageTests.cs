@@ -2,7 +2,6 @@
 using NLog;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 using Task1.SourceCode;
 using Task1.SourceCode.exception;
 
